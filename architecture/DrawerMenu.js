@@ -7,7 +7,6 @@ import CircularLoading from "../componentsNative/animated/CircularLoading";
 import useHydrateUser from "./UserHydration";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
-import AwaitingOTP from "../pages/AwaitingOTP";
 
 const Drawer = createDrawerNavigator();
 
@@ -26,17 +25,10 @@ export default function DrawerMenu() {
   return (
     <NavigationContainer>
       {!user ? (
-        <Drawer.Navigator>
+        <Drawer.Navigator screenOptions={{ headerShown: false }}>
           <Drawer.Screen
             name="Login"
             component={Login}
-          />
-        </Drawer.Navigator>
-      ) : user.userStatus === "AwaitingOTP" ? (
-        <Drawer.Navigator>
-          <Drawer.Screen
-            name="AwaitingOTP"
-            component={AwaitingOTP}
           />
         </Drawer.Navigator>
       ) : (

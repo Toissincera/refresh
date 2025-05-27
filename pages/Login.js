@@ -1,7 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import * as Yup from "yup";
 import { ControllerFormInput } from "../forms/ControllerForm";
 import { useRecoilState } from "recoil";
@@ -60,37 +67,49 @@ export default function Login() {
   }
 
   return (
-    <View style={sx.parent}>
-      <Text style={sx.header}>Please enter your phone number to verify</Text>
-      <ControllerFormInput
-        control={control}
-        name={"phoneNumber"}
-        placeholder={"9876543210"}
-        required
-        errors={errors.phoneNumber}
-        style={sx.input}
-      />
-      <Button
-        title="Submit"
-        onPress={handleSubmit(handleOnSubmit)}
-        loading={loading}
-      />
-      <Text>{apiResponse}</Text>
-      <Text>{errorMessage}</Text>
-    </View>
+    <ImageBackground
+      source={require("../assets/wallpapers/loginWallpaperLight.jpg")}
+      resizeMode="cover"
+      style={sx.parent}
+    >
+      <View style={sx.impact}>
+        <Text style={sx.title}>Welcome to</Text>
+        <Text style={sx.brand}>REFRESH</Text>
+        <Text style={sx.subtitle}>Connect with your local suppliers now!</Text>
+      </View>
+      <View style={sx.form}>
+        <Text style={sx.header}>Please enter your phone number to verify</Text>
+        <ControllerFormInput
+          control={control}
+          name={"phoneNumber"}
+          placeholder={"9876543210"}
+          required
+          errors={errors.phoneNumber}
+          style={sx.input}
+        />
+        <Button
+          title="Submit"
+          onPress={handleSubmit(handleOnSubmit)}
+          loading={loading}
+        />
+        <Text>{apiResponse}</Text>
+        <Text>{errorMessage}</Text>
+      </View>
+    </ImageBackground>
   );
 }
 
 var sx = StyleSheet.create({
-  parent: { padding: 24, backgroundColor: "ghostwhite" },
-  header: { marginVertical: 4, fontWeight: 600 },
-  input: { padding: 8, borderWidth: 2, borderRadius: 4 },
+  parent: {
+    flex: 1,
+    padding: 8,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  impact: { borderWidth: 1, marginTop: 64 },
+  title: { textAlign: "center", fontSize: 48, fontFamily: "Nunito-Black" },
+  brand: { textAlign: "center", fontSize: 64 },
+  subtitle: { textAlign: "center", fontSize: 32 },
+  form: { padding: 8, borderWidth: 2, borderRadius: 4 },
 });
-
-var responseSample = {
-  status_code: "200",
-  redirect: "",
-  message: "OTP sent successfully",
-  driver_mobile_number: "9352258931",
-  otp: "6211 LYdm0SYyHPq",
-};
