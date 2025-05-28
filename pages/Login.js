@@ -2,14 +2,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
-  Button,
   ImageBackground,
+  Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import * as Yup from "yup";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { ControllerFormInput } from "../forms/ControllerForm";
 import { useRecoilState } from "recoil";
 import { UserState } from "../recoil/atom";
@@ -73,27 +73,34 @@ export default function Login() {
       style={sx.parent}
     >
       <View style={sx.impact}>
-        <Text style={sx.title}>Welcome to</Text>
         <Text style={sx.brand}>REFRESH</Text>
-        <Text style={sx.subtitle}>Connect with your local suppliers now!</Text>
+        <Text style={sx.subtitle}>Connect with your local grocery suppliers now!</Text>
       </View>
+
       <View style={sx.form}>
-        <Text style={sx.header}>Please enter your phone number to verify</Text>
-        <ControllerFormInput
-          control={control}
-          name={"phoneNumber"}
-          placeholder={"9876543210"}
-          required
-          errors={errors.phoneNumber}
-          style={sx.input}
-        />
-        <Button
-          title="Submit"
+        <Text style={sx.guide}>Enter phone number to join</Text>
+        <View style={sx.input}>
+          <ControllerFormInput
+            control={control}
+            name={"phoneNumber"}
+            placeholder={"Phone number..."}
+            required
+            errors={errors.phoneNumber}
+            isLarge
+          />
+        </View>
+        <Pressable
           onPress={handleSubmit(handleOnSubmit)}
           loading={loading}
-        />
-        <Text>{apiResponse}</Text>
-        <Text>{errorMessage}</Text>
+          style={sx.button}
+        >
+          <Ionicons
+            name="arrow-forward-circle"
+            size={48}
+            color="black"
+            onPress={handleSubmit(handleOnSubmit)}
+          />
+        </Pressable>
       </View>
     </ImageBackground>
   );
@@ -107,9 +114,23 @@ var sx = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  impact: { borderWidth: 1, marginTop: 64 },
-  title: { textAlign: "center", fontSize: 48, fontFamily: "Nunito-Black" },
-  brand: { textAlign: "center", fontSize: 64 },
-  subtitle: { textAlign: "center", fontSize: 32 },
-  form: { padding: 8, borderWidth: 2, borderRadius: 4 },
+  impact: { marginTop: 64 },
+  brand: { textAlign: "center", fontSize: 80, fontFamily: "NunitoBold" },
+  subtitle: { textAlign: "center", fontSize: 32, fontFamily: "NunitoSemiBold" },
+  form: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    paddingBottom: 12,
+    paddingLeft: 16,
+    gap: 8,
+    width: "80%",
+    // backgroundColor: "pink",
+  },
+  guide: { fontSize: 20, width: "100%" },
+  input: { flex: 1 },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

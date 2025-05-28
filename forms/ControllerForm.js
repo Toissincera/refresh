@@ -8,6 +8,7 @@ export function ControllerFormInput({
   secureTextEntry = false,
   required,
   errors = "Field required",
+  isLarge,
 }) {
   return (
     <Controller
@@ -32,7 +33,7 @@ export function ControllerFormInput({
               ]}
             />
           </View>
-          {errors.message && <Text style={sx.warning}>{errors.message}</Text>}
+          {errors.message && <Text style={sx.warning}>Invalid Input</Text>}
         </View>
       )}
     />
@@ -40,37 +41,36 @@ export function ControllerFormInput({
 }
 
 const sx = StyleSheet.create({
-  parent: { display: "flex", flexDirection: "column" },
+  parent: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+  },
   inputParent: {
     display: "flex",
     width: "100%",
     position: "relative",
     alignItems: "center",
     flexDirection: "column",
-    paddingTop: 8,
-    paddingBottom: 6,
-    padding: 0,
   },
   textInput: {
     width: "100%",
-    height: 40,
+    height: 50,
     paddingVertical: 8,
     paddingHorizontal: 14,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 4,
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 400,
-    color: "rgba(0,0,0,0.87)",
+    color: "black",
   },
   warning: {
     fontSize: 16,
     fontWeight: 600,
-    color: "tomato",
     textAlign: "left",
-    paddingBottom: 6,
   },
   borderNormal: {
-    borderColor: "rgba(0,0,0,0.23)",
+    borderColor: "black",
   },
   borderWarning: {
     borderColor: "tomato",

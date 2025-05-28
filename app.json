@@ -26,6 +26,18 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            { "Nunito100": "./assets/fonts/Nunito-Light.ttf" },
+            { "Nunito500": "./assets/fonts/Nunito-Regular.ttf" },
+            { "Nunito900": "./assets/fonts/Nunito-Black.ttf" }
+          ]
+        }
+      ]
+    ]
   }
 }
