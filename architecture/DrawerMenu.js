@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { UserState } from "../recoil/atom";
 import CircularLoading from "../componentsNative/animated/CircularLoading";
 import useHydrateUser from "./UserHydration";
-import Dashboard from "../pages/Dashboard";
+import BrowseParent from "../pages/browse/BrowseParent";
 import Login from "../pages/Login";
 
 const Drawer = createDrawerNavigator();
@@ -34,8 +34,8 @@ export default function DrawerMenu() {
       ) : (
         <Drawer.Navigator>
           <Drawer.Screen
-            name="Dashboard"
-            component={Dashboard}
+            name="Browse"
+            component={BrowseParent}
           />
         </Drawer.Navigator>
       )}
