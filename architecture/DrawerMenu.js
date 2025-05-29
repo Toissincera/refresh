@@ -24,7 +24,7 @@ export default function DrawerMenu() {
 
   return (
     <NavigationContainer>
-      {!user ? (
+      {user ? (
         <Drawer.Navigator screenOptions={{ headerShown: false }}>
           <Drawer.Screen
             name="Login"

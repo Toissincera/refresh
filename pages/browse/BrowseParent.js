@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { Button, View, StyleSheet, Text, ScrollView } from "react-native";
-import { useRecoilState } from "recoil";
-import { UserState } from "../../recoil/atom";
+import { StyleSheet, ScrollView } from "react-native";
 import GroceryAndKitchen from "./sections/GroceryAndKitchen";
+import SnacksAndDrinks from "./sections/SnacksAndDrinks";
+
+// import { useRecoilState } from "recoil";
+// import { UserState } from "../../recoil/atom";
 
 export default function BrowseParent() {
   return (
-    <View style={sx.parent}>
+    <ScrollView style={sx.parent}>
       <GroceryAndKitchen />
-    </View>
+      <SnacksAndDrinks />
+    </ScrollView>
   );
 }
 
