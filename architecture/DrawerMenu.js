@@ -7,6 +7,7 @@ import CircularLoading from "../componentsNative/animated/CircularLoading";
 import useHydrateUser from "./UserHydration";
 import BrowseParent from "../pages/browse/BrowseParent";
 import Login from "../pages/Login";
+import OrderParent from "../pages/order/OrderParent";
 
 const Drawer = createDrawerNavigator();
 
@@ -24,7 +25,7 @@ export default function DrawerMenu() {
 
   return (
     <NavigationContainer>
-      {user ? (
+      {!user ? (
         <Drawer.Navigator screenOptions={{ headerShown: false }}>
           <Drawer.Screen
             name="Login"
@@ -36,6 +37,10 @@ export default function DrawerMenu() {
           <Drawer.Screen
             name="Browse"
             component={BrowseParent}
+          />
+          <Drawer.Screen
+            name="Order"
+            component={OrderParent}
           />
         </Drawer.Navigator>
       )}

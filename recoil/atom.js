@@ -12,8 +12,8 @@ export const UserState = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
-export const LanguageState = atom({
-  key: "language",
-  default: "english",
+export const CurrentOrderState = atom({
+  key: "order",
+  default: { fan: 0, cookies: 0, mathri: 0, paperCup: 0 },
   effects_UNSTABLE: [persistAtom],
 });

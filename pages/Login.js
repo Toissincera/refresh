@@ -98,7 +98,7 @@ export default function Login() {
             name="arrow-forward-circle"
             size={48}
             color="black"
-            onPress={handleSubmit(handleOnSubmit)}
+            // onPress={handleSubmit(handleOnSubmit)}
           />
         </Pressable>
       </View>
