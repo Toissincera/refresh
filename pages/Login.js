@@ -1,29 +1,25 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Alert, ImageBackground, StyleSheet, Text, View } from "react-native";
 import * as Yup from "yup";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { supabase } from "../supabase/supabase";
 import { ControllerFormInput } from "../forms/ControllerForm";
 import { useRecoilState } from "recoil";
 import { UserState } from "../recoil/atom";
+import { Button } from "@rneui/base";
 
 export default function Login() {
   const [user, setUser] = useRecoilState(UserState);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [apiResponse, setAPIResponse] = useState(null);
 
   const phoneValidationSchema = Yup.object({
-    phoneNumber: Yup.number("Must be a number").required("Number is required"),
-    //   .min(10, "Must be 10 digits")
-    //   .max(10, "Must be 10 digits"),
+    name: Yup.string("Invalid name").required("Name is required"),
+    phoneNumber: Yup.string()
+      .required("Phone number is required")
+      .matches(/^\d{10}$/, "Only 10 digits, no +91 needed"),
+    address: Yup.string("Invalid address").required("Address is required"),
   });
   const {
     control,
@@ -33,37 +29,33 @@ export default function Login() {
     resolver: yupResolver(phoneValidationSchema),
   });
 
-  async function handleOnSubmit(formData) {
+  async function createUserSupabase(formdata) {
+    console.log(formdata);
     setLoading(true);
-    try {
-      const response = await fetch(
-        "https://www.tatd.in/app-api/driver/login/driver-login.php",
+    const { data, error } = await supabase
+      .from("shopkeepers")
+      .insert([
         {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            mobile: "9352258931",
-            user_type: "Driver",
-            app_version: "2.37",
-            app_type: "android",
-          }),
-        }
-      );
-      const json = await response.json();
+          name: formdata.name,
+          phoneNumber: formdata.phoneNumber,
+          address: formdata.address,
+        },
+      ])
+      .select();
 
-      if (json.status_code === "200") {
-        json.userStatus = "AwaitingOTP";
-        setUser(json);
-      } else {
-        setErrorMessage("Network Error. Invalid request.");
-      }
-    } catch (error) {
-      setErrorMessage("Request failed. Please try again later.");
+    if (error) {
+      setLoading(false);
+      Alert.alert("Error", "Could not sign up. Please try again later.", [
+        { text: "Okay" },
+      ]);
     }
-    setLoading(false);
+    if (data) {
+      setLoading(false);
+      Alert.alert("All signed up!", "Welcome to Refresh. Order now!", [
+        { text: "Okay" },
+      ]);
+      setUser(data);
+    }
   }
 
   return (
@@ -71,14 +63,25 @@ export default function Login() {
       source={require("../assets/wallpapers/loginWallpaperLight.jpg")}
       resizeMode="cover"
       style={sx.parent}
+      imageStyle={{ top: -180, resizeMode: "contain", position: "absolute" }}
     >
       <View style={sx.impact}>
         <Text style={sx.brand}>REFRESH</Text>
-        <Text style={sx.subtitle}>Connect with your local grocery suppliers now!</Text>
+        <Text style={sx.subtitle}>
+          Connect with your local grocery suppliers now!
+        </Text>
       </View>
 
       <View style={sx.form}>
-        <Text style={sx.guide}>Enter phone number to join</Text>
+        <View style={sx.input}>
+          <ControllerFormInput
+            control={control}
+            name={"name"}
+            placeholder={"Name..."}
+            required
+            errors={errors.name}
+          />
+        </View>
         <View style={sx.input}>
           <ControllerFormInput
             control={control}
@@ -86,21 +89,40 @@ export default function Login() {
             placeholder={"Phone number..."}
             required
             errors={errors.phoneNumber}
-            isLarge
+            keyboardType="numeric"
           />
         </View>
-        <Pressable
-          onPress={handleSubmit(handleOnSubmit)}
-          loading={loading}
-          style={sx.button}
-        >
-          <Ionicons
-            name="arrow-forward-circle"
-            size={48}
-            color="black"
-            // onPress={handleSubmit(handleOnSubmit)}
+        <View style={sx.input}>
+          <ControllerFormInput
+            control={control}
+            name={"address"}
+            placeholder={"Address..."}
+            required
+            errors={errors.address}
           />
-        </Pressable>
+        </View>
+        <Button
+          buttonStyle={{
+            backgroundColor: "green",
+            minWidth: "100%",
+          }}
+          titleStyle={{
+            fontSize: 20,
+            fontFamily: "NunitoBold",
+          }}
+          onPress={handleSubmit(createUserSupabase)}
+          loading={loading}
+          icon={
+            <Ionicons
+              name="arrow-forward-circle"
+              size={36}
+              color="black"
+            />
+          }
+          iconRight={true}
+        >
+          Sign Up Now &nbsp;
+        </Button>
       </View>
     </ImageBackground>
   );
@@ -109,7 +131,6 @@ export default function Login() {
 var sx = StyleSheet.create({
   parent: {
     flex: 1,
-    padding: 8,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
@@ -118,19 +139,21 @@ var sx = StyleSheet.create({
   brand: { textAlign: "center", fontSize: 80, fontFamily: "NunitoBold" },
   subtitle: { textAlign: "center", fontSize: 32, fontFamily: "NunitoSemiBold" },
   form: {
-    flexDirection: "row",
-    flexWrap: "wrap",
     alignItems: "center",
-    paddingBottom: 12,
-    paddingLeft: 16,
+    paddingHorizontal: 36,
+    paddingVertical: 8,
     gap: 8,
-    width: "80%",
-    // backgroundColor: "pink",
+    width: "100%",
+    backgroundColor: "#dedce1",
   },
-  guide: { fontSize: 20, width: "100%" },
-  input: { flex: 1 },
+  input: { width: "100%" },
   button: {
+    backgroundColor: "green",
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
+    fontSize: 20,
+    fontFamily: "NunitoBold",
   },
 });

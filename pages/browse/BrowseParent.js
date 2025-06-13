@@ -1,14 +1,48 @@
-import { StyleSheet, ScrollView, View, Text } from "react-native";
+import { StyleSheet, ScrollView, View, Text, Alert } from "react-native";
 import { Button } from "@rneui/base";
-import { useNavigation } from "@react-navigation/native";
 import GroceryItemCard from "./sections/GroceryItemCard";
-
 import { useRecoilState } from "recoil";
-import { UserState } from "../../recoil/atom";
+import { CurrentOrderState, UserState } from "../../recoil/atom";
+
+import { supabase } from "../../supabase/supabase";
+import { useState } from "react";
 
 export default function BrowseParent() {
-  const navigation = useNavigation();
-  console.log(UserState);
+  const [user, setUser] = useRecoilState(UserState);
+  const [order, setOrder] = useRecoilState(CurrentOrderState);
+  const [loading, setLoading] = useState(false);
+
+  async function sendPurchaseToSupabase() {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("purchaseRequests")
+      .insert([
+        {
+          fromShopkeeper: user[0].phoneNumber,
+          order: order,
+        },
+      ])
+      .select();
+
+    if (error) {
+      setLoading(false);
+      Alert.alert(
+        "Error",
+        "There was an error. Your order was not placed. Please try again later.",
+        [{ text: "Okay" }]
+      );
+    }
+    if (data) {
+      setLoading(false);
+      Alert.alert(
+        "Order Sent!",
+        "Your order is confirmed. Delivery will be made soon.",
+        [{ text: "Okay" }]
+      );
+      setOrder({ fan: 0, cookies: 0, mathri: 0, paperCup: 0 });
+    }
+    setLoading(false);
+  }
   return (
     <ScrollView style={sx.parent}>
       <Text style={sx.heading}>Select order</Text>
@@ -40,7 +74,11 @@ export default function BrowseParent() {
           fontSize: 20,
           fontFamily: "NunitoBold",
         }}
-        onPress={() => navigation.navigate("Order")}
+        onPress={() => sendPurchaseToSupabase()}
+        loading={loading}
+        disabled={
+          !order.fan && !order.cookies && !order.mathri && !order.paperCup
+        }
       >
         Buy Now
       </Button>

@@ -8,7 +8,7 @@ export function ControllerFormInput({
   secureTextEntry = false,
   required,
   errors = "Field required",
-  isLarge,
+  keyboardType = "default",
 }) {
   return (
     <Controller
@@ -31,9 +31,10 @@ export function ControllerFormInput({
                 sx.textInput,
                 errors.message ? sx.borderWarning : sx.borderNormal,
               ]}
+              keyboardType={keyboardType}
             />
           </View>
-          {errors.message && <Text style={sx.warning}>Invalid Input</Text>}
+          {errors.message && <Text style={sx.warning}>{errors.message}</Text>}
         </View>
       )}
     />
@@ -55,12 +56,12 @@ const sx = StyleSheet.create({
   },
   textInput: {
     width: "100%",
-    height: 50,
+    height: 40,
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderWidth: 2,
     borderRadius: 4,
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 400,
     color: "black",
   },

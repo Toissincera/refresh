@@ -13,7 +13,7 @@ export default function App() {
     NunitoSemiBold: require("./assets/fonts/Nunito-SemiBold.ttf"),
     Nunito: require("./assets/fonts/Nunito-Regular.ttf"),
     NunitoLight: require("./assets/fonts/Nunito-Light.ttf"),
-    Nunito1ExtraLight: require("./assets/fonts/Nunito-ExtraLight.ttf"),
+    NunitoExtraLight: require("./assets/fonts/Nunito-ExtraLight.ttf"),
   });
 
   if (!fontsLoaded) return null;
