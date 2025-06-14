@@ -48,6 +48,7 @@ export default function Login() {
       Alert.alert("Error", "Could not sign up. Please try again later.", [
         { text: "Okay" },
       ]);
+      console.log(error);
     }
     if (data) {
       setLoading(false);

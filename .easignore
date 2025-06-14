@@ -1,0 +1,39 @@
+# Node modules and dependencies
+node_modules
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# Build artifacts
+build
+dist
+android/.gradle
+android/.idea
+android/.cxx
+android/local.properties
+android/app/build
+ios/Pods
+ios/build
+
+# System files
+.DS_Store
+.env
+*.keystore
+
+# Git & version control
+.git
+.gitignore
+
+# Expo-specific cache
+.expo
+.expo-shared
+
+# OS or IDE-specific
+.vscode
+.idea
+*.swp
+*.tmp
+
+# Expo Dev Client outputs
+*.apk
+*.aab

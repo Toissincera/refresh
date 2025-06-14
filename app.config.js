@@ -14,10 +14,17 @@ export default {
       resizeMode: "contain",
       backgroundColor: "#ffffff",
     },
+    updates: {
+      url: "https://u.expo.dev/edbbecf0-6a13-4a19-a190-874cdf3c46a6",
+    },
     ios: {
+      runtimeVersion: {
+        policy: "appVersion",
+      },
       supportsTablet: true,
     },
     android: {
+      runtimeVersion: "1.0.0",
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff",

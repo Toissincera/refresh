@@ -18,19 +18,21 @@
     "@supabase/supabase-js": "^2.50.0",
     "dotenv": "^16.5.0",
     "expo": "~52.0.43",
+    "expo-dev-client": "~5.0.20",
     "expo-font": "~13.0.4",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.56.3",
     "react-native": "0.76.9",
     "react-native-gesture-handler": "~2.20.2",
+    "react-native-reanimated": "3.16.1",
     "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.4.0",
-    "react-native-reanimated": "3.16.1",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "styled-components": "^6.1.17",
-    "yup": "^1.6.1"
+    "yup": "^1.6.1",
+    "expo-updates": "~0.27.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
@@ -44,5 +46,6 @@
     "expo-web-browser": "~14.0.2",
     "react-native-table-component": "^1.2.2"
   },
+  "buildOne": "https://expo.dev/accounts/toissincera/projects/refresh/builds/8d37a5cb-4164-4c93-aa49-a6fb6d3595bc",
   "private": true
 }
