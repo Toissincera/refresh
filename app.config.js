@@ -15,7 +15,7 @@ export default {
       backgroundColor: "#ffffff",
     },
     updates: {
-      url: "https://u.expo.dev/edbbecf0-6a13-4a19-a190-874cdf3c46a6",
+      url: "otaone",
     },
     ios: {
       runtimeVersion: {
