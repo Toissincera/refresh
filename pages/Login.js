@@ -9,6 +9,7 @@ import { ControllerFormInput } from "../forms/ControllerForm";
 import { useRecoilState } from "recoil";
 import { UserState } from "../recoil/atom";
 import { Button } from "@rneui/base";
+import * as Updates from "expo-updates";
 
 export default function Login() {
   const [user, setUser] = useRecoilState(UserState);
@@ -58,6 +59,11 @@ export default function Login() {
       setUser(data);
     }
   }
+
+  Alert.alert(
+    `${Updates.channel}, ${Updates.updateId}, ${Updates.runtimeVersion}`,
+    `${Updates.channel}, ${Updates.updateId}, ${Updates.runtimeVersion}`
+  );
 
   return (
     <ImageBackground
