@@ -15,7 +15,7 @@ export default {
       backgroundColor: "#ffffff",
     },
     updates: {
-      url: "otaone",
+      channel: "otaone",
     },
     ios: {
       runtimeVersion: {

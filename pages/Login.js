@@ -69,7 +69,7 @@ export default function Login() {
       <View style={sx.impact}>
         <Text style={sx.brand}>REFRESH</Text>
         <Text style={sx.subtitle}>
-          Connect with your local grocery suppliers now!!!
+          Connect with your local grocery suppliers now.
         </Text>
       </View>
 
