@@ -80,7 +80,7 @@ export default function BrowseParent() {
           !order.fan && !order.cookies && !order.mathri && !order.paperCup
         }
       >
-        Buy Now
+        Buy Now!!!
       </Button>
     </ScrollView>
   );
