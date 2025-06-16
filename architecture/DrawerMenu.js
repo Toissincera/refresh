@@ -8,7 +8,6 @@ import useHydrateUser from "./UserHydration";
 import BrowseParent from "../pages/browse/BrowseParent";
 import Login from "../pages/Login";
 import OrderParent from "../pages/order/OrderParent";
-import { Alert } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
@@ -16,11 +15,6 @@ export default function DrawerMenu() {
   const [isHydrating, setIsHydrating] = useState(true);
   useHydrateUser(isHydrating, setIsHydrating);
   const user = useRecoilValue(UserState);
-
-  console.log("🔥 OTA update applied at", Date.now());
-  Alert.alert("Updated OTA", `${Date.now()}`, [
-    { text: "Okay" },
-  ]);
 
   if (isHydrating)
     return (
