@@ -10,26 +10,15 @@ import { Alert } from "react-native";
 export default function App() {
   useEffect(() => {
     const checkAndApplyUpdate = async () => {
-      Alert.alert("🚀 Checking for OTA update...");
-      console.log("🚀 Checking for OTA update...");
       try {
         const update = await Updates.checkForUpdateAsync();
-        Alert.alert("✅ Update check completed:");
-        console.log("✅ Update check completed:", update);
         if (update.isAvailable) {
-          Alert.alert("⬇️ Update is available. Fetching...");
-          console.log("⬇️ Update is available. Fetching...");
           await Updates.fetchUpdateAsync();
-          Alert.alert("✅ Update fetched. Reloading...");
-          console.log("✅ Update fetched. Reloading...");
           await Updates.reloadAsync();
         } else {
-          Alert.alert("⚠️ No update available.");
-          console.log("⚠️ No update available.");
         }
       } catch (e) {
-        Alert.alert("❌ OTA update error:", e.message);
-        console.log("❌ OTA update error:", e.message);
+        Alert.alert("Error updating app.", e.message);
       }
     };
 

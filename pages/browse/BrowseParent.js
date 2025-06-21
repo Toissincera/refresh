@@ -26,17 +26,13 @@ export default function BrowseParent() {
 
     if (error) {
       setLoading(false);
-      Alert.alert(
-        "Error",
-        "There was an error. Your order was not placed. Please try again later.",
-        [{ text: "Okay" }]
-      );
+      Alert.alert("Error placing order", error);
     }
     if (data) {
       setLoading(false);
       Alert.alert(
         "Order Sent!",
-        "Your order is confirmed. Delivery will be made soon.",
+        "Delivery will be made soon. Check order summary in the Order tab.",
         [{ text: "Okay" }]
       );
       setOrder({ fan: 0, cookies: 0, mathri: 0, paperCup: 0 });

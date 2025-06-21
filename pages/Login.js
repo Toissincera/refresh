@@ -46,24 +46,15 @@ export default function Login() {
 
     if (error) {
       setLoading(false);
-      Alert.alert("Error", "Could not sign up. Please try again later.", [
-        { text: "Okay" },
-      ]);
+      Alert.alert("Error signing up, try again later", error);
       console.log(error);
     }
     if (data) {
       setLoading(false);
-      Alert.alert("All signed up!", "Welcome to Refresh. Order now!", [
-        { text: "Okay" },
-      ]);
+      Alert.alert("All signed up!", "Welcome to Refresh. Order now!");
       setUser(data);
     }
   }
-
-  Alert.alert(
-    `${Updates.channel}, ${Updates.updateId}, ${Updates.runtimeVersion}`,
-    `${Updates.channel}, ${Updates.updateId}, ${Updates.runtimeVersion}`
-  );
 
   return (
     <ImageBackground

@@ -4,7 +4,7 @@ import {
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 
 export default function CustomDrawerContent(props) {
   return (
@@ -30,13 +30,26 @@ export default function CustomDrawerContent(props) {
         />
         <DrawerItemList {...props} />
       </View>
-      <DrawerItem
-        label="Log Out"
-        onPress={() => {
-          props.navigation.closeDrawer();
-          alert("This should log you out...ideally");
-        }}
-      />
+      <View>
+        <DrawerItem
+          label="App Info"
+          onPress={() => {
+            Alert.alert(
+              "App Information",
+              `Update channel: ${Updates.channel}\n
+               Update ID: ${Updates.updateId}\n
+               Update Runtime Version: ${Updates.runtimeVersion}`
+            );
+          }}
+        />
+        <DrawerItem
+          label="Log Out"
+          onPress={() => {
+            props.navigation.closeDrawer();
+            Alert.alert("This should log you out...ideally");
+          }}
+        />
+      </View>
     </DrawerContentScrollView>
   );
 }
