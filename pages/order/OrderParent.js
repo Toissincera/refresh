@@ -9,26 +9,6 @@ export default function OrderParent() {
   const user = useRecoilValue(UserState);
   const [recentOrders, setRecentOrder] = useState([]);
 
-  // useEffect(() => {
-  //   async function fetchRecentOrders() {
-  //     const { data, error } = await supabase
-  //       .from("purchaseRequests")
-  //       .select("*")
-  //       .eq("fromShopkeeper", user[0].phoneNumber);
-
-  //     if (error) {
-  //       Alert.alert("Oops!", "No recent orders found.", [{ text: "Okay" }]);
-  //     }
-  //     if (data) {
-  //       Alert.alert("Recent orders", "Here are your recent orders", [
-  //         { text: "Okay" },
-  //       ]);
-  //       setRecentOrder(data);
-  //     }
-  //   }
-  //   fetchRecentOrders();
-  // }, []);
-
   useFocusEffect(
     useCallback(() => {
       // Do something when the screen is focused
@@ -37,7 +17,7 @@ export default function OrderParent() {
         const { data, error } = await supabase
           .from("purchaseRequests")
           .select("*")
-          .eq("fromShopkeeper", user[0].phoneNumber);
+          .eq("fromShopkeeper", user.phoneNumber);
 
         if (error) {
           Alert.alert("Oops!", "No recent orders found.", [{ text: "Okay" }]);

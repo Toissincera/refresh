@@ -5,8 +5,7 @@ import { useRecoilState } from "recoil";
 import { CurrentOrderState, UserState } from "../../recoil/atom";
 
 import { supabase } from "../../supabase/supabase";
-import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 export default function BrowseParent() {
   const [user, setUser] = useRecoilState(UserState);
@@ -19,7 +18,7 @@ export default function BrowseParent() {
       .from("purchaseRequests")
       .insert([
         {
-          fromShopkeeper: user[0].phoneNumber,
+          fromShopkeeper: user.phoneNumber,
           order: order,
         },
       ])
@@ -27,7 +26,7 @@ export default function BrowseParent() {
 
     if (error) {
       setLoading(false);
-      Alert.alert("Error placing order", error);
+      Alert.alert("Error placing order", JSON.stringify(error, null, 4));
     }
     if (data) {
       setLoading(false);
@@ -40,10 +39,7 @@ export default function BrowseParent() {
     }
     setLoading(false);
   }
-  const nav = useNavigation();
-  useEffect(() => {
-    nav.openDrawer();
-  }, []);
+
   return (
     <ScrollView style={sx.parent}>
       <Text style={sx.heading}>Select order</Text>

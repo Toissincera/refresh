@@ -22,6 +22,7 @@ export default function Signup() {
     phoneNumber: Yup.string()
       .required("Phone number is required")
       .matches(/^\d{10}$/, "Only 10 digits, no +91 needed"),
+    address: Yup.string("Invalid address").required("Address is required"),
   });
   const {
     control,
@@ -31,26 +32,25 @@ export default function Signup() {
     resolver: yupResolver(phoneValidationSchema),
   });
 
-  async function loginUserSupabase(formdata) {
+  async function createUserSupabase(formdata) {
     setLoading(true);
     const { data, error } = await supabase
       .from("shopkeepers")
-      .select("*")
-      .eq("name", formdata.name)
-      .eq("phoneNumber", formdata.phoneNumber)
+      .insert([
+        {
+          name: formdata.name,
+          phoneNumber: formdata.phoneNumber,
+          address: formdata.address,
+        },
+      ])
+      .select()
       .single();
+
     if (error) {
       setLoading(false);
       Alert.alert(
-        "Error logging in, try again later",
+        "Error signing up, try again later",
         JSON.stringify(error, null, 4)
-      );
-    }
-    if (!data) {
-      setLoading(false);
-      Alert.alert(
-        "Incorrect name or phone number",
-        "Make sure the name and number is exact"
       );
     }
     if (data) {
@@ -95,6 +95,15 @@ export default function Signup() {
             keyboardType="numeric"
           />
         </View>
+        <View style={sx.input}>
+          <ControllerFormInput
+            control={control}
+            name={"address"}
+            placeholder={"Address..."}
+            required
+            errors={errors.address}
+          />
+        </View>
         <Button
           buttonStyle={{
             backgroundColor: "green",
@@ -104,7 +113,7 @@ export default function Signup() {
             fontSize: 20,
             fontFamily: "NunitoBold",
           }}
-          onPress={handleSubmit(loginUserSupabase)}
+          onPress={handleSubmit(createUserSupabase)}
           loading={loading}
           icon={
             <Ionicons
@@ -115,7 +124,7 @@ export default function Signup() {
           }
           iconRight={true}
         >
-          Login &nbsp;
+          Sign Up &nbsp;
         </Button>
         <Button
           buttonStyle={{
@@ -129,9 +138,9 @@ export default function Signup() {
             fontFamily: "NunitoBold",
             color: "#333",
           }}
-          onPress={() => nav.navigate("Signup")}
+          onPress={() => nav.navigate("Login")}
         >
-          New here? Sign up instead
+          Already a user? Login instead
         </Button>
       </View>
     </ImageBackground>

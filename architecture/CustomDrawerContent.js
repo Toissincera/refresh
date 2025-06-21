@@ -6,8 +6,11 @@ import {
 } from "@react-navigation/drawer";
 import { Alert, View } from "react-native";
 import * as Updates from "expo-updates";
+import { UserState } from "../recoil/atom";
+import { useRecoilState } from "recoil";
 
 export default function CustomDrawerContent(props) {
+  const [user, setUser] = useRecoilState(UserState);
   return (
     <DrawerContentScrollView
       contentContainerStyle={{
@@ -41,9 +44,13 @@ export default function CustomDrawerContent(props) {
             e.preventDefault();
             Alert.alert(
               "App Information",
-              `Update channel: ${Updates.channel}\n
-              Update ID: ${Updates.updateId}\n
-              Update Runtime Version: ${Updates.runtimeVersion}`
+              `Update channel: ${Updates.channel}\n` +
+                `Update ID: ${Updates.updateId}\n` +
+                `Update Runtime Version: ${Updates.runtimeVersion}\n` +
+                `ID: ${user.id}\n` +
+                `Name: ${user.name}\n` +
+                `Number: ${user.phoneNumber}\n` +
+                `Address: ${user.address}`
             );
           }}
         />
@@ -52,7 +59,7 @@ export default function CustomDrawerContent(props) {
           onPress={(e) => {
             e.preventDefault();
             props.navigation.closeDrawer();
-            Alert.alert("This should log you out...ideally");
+            setUser(null);
           }}
         />
       </View>

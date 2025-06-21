@@ -6,6 +6,7 @@ import { UserState } from "../recoil/atom";
 import CircularLoading from "../componentsNative/animated/CircularLoading";
 import useHydrateUser from "./UserHydration";
 import BrowseParent from "../pages/browse/BrowseParent";
+import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import OrderParent from "../pages/order/OrderParent";
 import CustomDrawerContent from "./CustomDrawerContent";
@@ -29,8 +30,25 @@ export default function DrawerMenu() {
       {!user ? (
         <Drawer.Navigator screenOptions={{ headerShown: false }}>
           <Drawer.Screen
+            name="Signup"
+            component={Signup}
+          />
+          <Drawer.Screen
             name="Login"
             component={Login}
+          />
+        </Drawer.Navigator>
+      ) : user.isAdmin === false ? (
+        <Drawer.Navigator
+          drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+          <Drawer.Screen
+            name="Browse"
+            component={BrowseParent}
+          />
+          <Drawer.Screen
+            name="Order"
+            component={OrderParent}
           />
         </Drawer.Navigator>
       ) : (
