@@ -5,7 +5,8 @@ import { useRecoilState } from "recoil";
 import { CurrentOrderState, UserState } from "../../recoil/atom";
 
 import { supabase } from "../../supabase/supabase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function BrowseParent() {
   const [user, setUser] = useRecoilState(UserState);
@@ -39,6 +40,10 @@ export default function BrowseParent() {
     }
     setLoading(false);
   }
+  const nav = useNavigation();
+  useEffect(() => {
+    nav.openDrawer();
+  }, []);
   return (
     <ScrollView style={sx.parent}>
       <Text style={sx.heading}>Select order</Text>

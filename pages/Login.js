@@ -9,7 +9,6 @@ import { ControllerFormInput } from "../forms/ControllerForm";
 import { useRecoilState } from "recoil";
 import { UserState } from "../recoil/atom";
 import { Button } from "@rneui/base";
-import * as Updates from "expo-updates";
 
 export default function Login() {
   const [user, setUser] = useRecoilState(UserState);
