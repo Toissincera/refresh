@@ -8,6 +8,7 @@ import useHydrateUser from "./UserHydration";
 import BrowseParent from "../pages/browse/BrowseParent";
 import Login from "../pages/Login";
 import OrderParent from "../pages/order/OrderParent";
+import CustomDrawerContent from "./CustomDrawerContent";
 
 const Drawer = createDrawerNavigator();
 
@@ -33,7 +34,9 @@ export default function DrawerMenu() {
           />
         </Drawer.Navigator>
       ) : (
-        <Drawer.Navigator>
+        <Drawer.Navigator
+          drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
           <Drawer.Screen
             name="Browse"
             component={BrowseParent}
