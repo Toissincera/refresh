@@ -10,6 +10,8 @@ import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import OrderParent from "../pages/order/OrderParent";
 import CustomDrawerContent from "./CustomDrawerContent";
+import AllOrders from "../pages/admin/AllOrders";
+import AllShopkeepers from "../pages/admin/AllShopkeepers";
 
 const Drawer = createDrawerNavigator();
 
@@ -56,12 +58,12 @@ export default function DrawerMenu() {
           drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
           <Drawer.Screen
-            name="Browse"
-            component={BrowseParent}
+            name="All Orders"
+            component={AllOrders}
           />
           <Drawer.Screen
-            name="Order"
-            component={OrderParent}
+            name="All Shopkeepers"
+            component={AllShopkeepers}
           />
         </Drawer.Navigator>
       )}

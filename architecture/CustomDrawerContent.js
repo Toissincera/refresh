@@ -45,8 +45,8 @@ export default function CustomDrawerContent(props) {
             Alert.alert(
               "App Information",
               `Update channel: ${Updates.channel}\n` +
-                `Update ID: ${Updates.updateId}\n` +
-                `Update Runtime Version: ${Updates.runtimeVersion}\n` +
+                `ID: ${Updates.updateId}\n` +
+                `Runtime: ${Updates.runtimeVersion}\n` +
                 `ID: ${user.id}\n` +
                 `Name: ${user.name}\n` +
                 `Number: ${user.phoneNumber}\n` +

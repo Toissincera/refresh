@@ -18,7 +18,8 @@ export default function BrowseParent() {
       .from("purchaseRequests")
       .insert([
         {
-          fromShopkeeper: user.phoneNumber,
+          fromNumber: user.phoneNumber,
+          fromName: user.name,
           order: order,
         },
       ])
