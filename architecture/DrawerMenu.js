@@ -12,6 +12,7 @@ import OrderParent from "../pages/order/OrderParent";
 import CustomDrawerContent from "./CustomDrawerContent";
 import AllOrders from "../pages/admin/AllOrders";
 import AllShopkeepers from "../pages/admin/AllShopkeepers";
+import { Text } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,7 +30,9 @@ export default function DrawerMenu() {
 
   return (
     <NavigationContainer>
-      {!user ? (
+      {3 > 2 ? (
+        <Text> The development server returned response error code: 500</Text>
+      ) : !user ? (
         <Drawer.Navigator screenOptions={{ headerShown: false }}>
           <Drawer.Screen
             name="Signup"
