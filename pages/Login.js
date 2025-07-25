@@ -1,7 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Alert, ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import * as Yup from "yup";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { supabase } from "../supabase/supabase";
@@ -69,7 +76,10 @@ export default function Signup() {
       imageStyle={{ top: -240, resizeMode: "contain", position: "absolute" }}
     >
       <View style={sx.impact}>
-        <Text style={sx.brand}>REFRESH</Text>
+        <Image
+          source={require("../assets/appIcon.png")}
+          style={{ width: 160, height: 160, paddingHorizontal: "auto" }}
+        />
         <Text style={sx.subtitle}>
           Connect with your local grocery suppliers today.
         </Text>
@@ -145,9 +155,14 @@ var sx = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  impact: { marginTop: 64 },
+  impact: { marginTop: 64, alignItems: "center" },
   brand: { textAlign: "center", fontSize: 80, fontFamily: "NunitoBold" },
-  subtitle: { textAlign: "center", fontSize: 32, fontFamily: "NunitoSemiBold" },
+  subtitle: { 
+    textAlign: "center", 
+    fontSize: 32, 
+    fontFamily: "NunitoBold", 
+    marginHorizontal: 16, 
+  },
   form: {
     alignItems: "center",
     paddingHorizontal: 36,

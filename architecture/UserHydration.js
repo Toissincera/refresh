@@ -18,6 +18,7 @@ export default function useHydrateUser(isHydrating, setIsHydrating) {
           timeout,
         ]);
         if (userString) {
+          console.log("user found: ", userString)
           const userJson = JSON.parse(userString);
           let { data, error } = await supabase
             .from("shopkeepers")

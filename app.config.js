@@ -6,11 +6,11 @@ export default {
     slug: "refresh",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/icon.png",
+    icon: "./assets/appIcon.png",
     userInterfaceStyle: "light",
     newArchEnabled: true,
     splash: {
-      image: "./assets/splash-icon.png",
+      image: "./assets/splashScreen.png",
       resizeMode: "contain",
       backgroundColor: "#ffffff",
     },

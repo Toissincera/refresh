@@ -8,6 +8,7 @@ import { Alert, View } from "react-native";
 import * as Updates from "expo-updates";
 import { UserState } from "../recoil/atom";
 import { useRecoilState } from "recoil";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function CustomDrawerContent(props) {
   const [user, setUser] = useRecoilState(UserState);
@@ -30,10 +31,7 @@ export default function CustomDrawerContent(props) {
               />
             </View>
           )}
-          onPress={(e) => {
-            e.preventDefault();
-            props.navigation.closeDrawer();
-          }}
+          onPress={() => props.navigation.closeDrawer()}
         />
         <DrawerItemList {...props} />
       </View>
@@ -56,10 +54,14 @@ export default function CustomDrawerContent(props) {
         />
         <DrawerItem
           label="Log Out"
-          onPress={(e) => {
-            e.preventDefault();
+          onPress={async () => {
             props.navigation.closeDrawer();
-            setUser(null);
+            try {
+              await AsyncStorage.removeItem("user");
+              setUser(null);
+            } catch (err) {
+              console.error("Error during logout:", err);
+            }
           }}
         />
       </View>
